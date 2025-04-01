@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Home Listers{% endblock %}
+
+{% block content %}
+<h2>Login</h2>
+<!-- Placeholder for success or error messages -->
+<div id="loginMessage" class="message"></div>
+<form id="loginForm" action="{{ url_for('routes.login') }}" method="POST">
+    <input type="email" id="loginEmail" name="email" placeholder="Email" required>
+    <input type="password" id="loginPassword" name="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+</form>
+{% endblock %}
