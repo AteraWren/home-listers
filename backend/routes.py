@@ -75,11 +75,9 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
         user = User.query.filter_by(email=email).first()
-
         if user and user.check_password(password):
             login_user(user)  # Log in the user
             access_token = create_access_token(identity=str(user.id))
-            print(f"Generated Access Token: {access_token}")  # Debugging
             return jsonify({
                 'message': 'Login successful!',
                 'access_token': access_token,
@@ -108,8 +106,6 @@ def create_post():
             location = request.json.get('location')
             image_url = request.json.get('image_url') or '/static/images/house-30.png'  # Use a hardcoded path
 
-            print(url_for('static', filename='images/house-30.png'))
-
             if not title or not description or not price or not location:
                 return jsonify({'error': 'All fields except image URL are required'}), 400
 
@@ -132,8 +128,6 @@ def create_post():
 
 @routes.route('/posts', methods=['GET'])
 def posts():
-    print(f"Current user: {current_user}")
-    print(f"Is user authenticated? {current_user.is_authenticated}")
     posts = Post.query.all()
 
     # Add a default image URL for posts without an image

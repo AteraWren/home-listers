@@ -15,8 +15,6 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    print("Database URI:", app.config['SQLALCHEMY_DATABASE_URI'])
-    print("Secret Key:", app.config['SECRET_KEY'])
 
     db.init_app(app)
     migrate.init_app(app, db)
@@ -27,9 +25,6 @@ def create_app():
     from .routes import routes as routes_blueprint
     app.register_blueprint(routes_blueprint)
 
-    print("App and SQLAlchemy instance initialized")
-    print("App instance:", app)
-    print("SQLAlchemy instance:", db)
 
     return app
 

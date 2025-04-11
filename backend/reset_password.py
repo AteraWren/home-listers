@@ -1,5 +1,10 @@
 from backend import create_app, db
 from backend.models import User
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = create_app()
 
@@ -13,6 +18,6 @@ with app.app_context():
         new_password = "DreamBig2025"  # Replace with the new password
         user.set_password(new_password)
         db.session.commit()
-        print(f"Password for user '{email}' has been reset.")
+        logger.info("Password has been reset for the specified user.")  # Log without exposing sensitive data
     else:
-        print(f"User with email '{email}' not found.")
+        logger.warning("User not found for the specified email.")  # Log without exposing sensitive data
