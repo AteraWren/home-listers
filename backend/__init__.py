@@ -25,7 +25,6 @@ def create_app():
     login_manager.init_app(app)
     jwt.init_app(app)  # Initialize JWTManager with the app
 
-    print("JWTManager initialized successfully.")  # Debug statement
 
     # Import and register blueprints
     from .routes import routes as routes_blueprint
