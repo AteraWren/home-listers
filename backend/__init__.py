@@ -14,17 +14,16 @@ bcrypt = Bcrypt()
 login_manager = LoginManager()
 jwt = JWTManager()  # Create an instance of JWTManager
 
-def create_app():
+def create_app(config_class=None):
     app = Flask(__name__)
-    app.config.from_object(Config)
+    app.config.from_object(config_class or Config)  # Use the provided config class or default to Config
 
     # Initialize extensions with the app
     db.init_app(app)
     migrate.init_app(app, db)
     bcrypt.init_app(app)
     login_manager.init_app(app)
-    jwt.init_app(app)  # Initialize JWTManager with the app
-
+    jwt.init_app(app)
 
     # Import and register blueprints
     from .routes import routes as routes_blueprint

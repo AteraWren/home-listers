@@ -57,7 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
 					messageDiv.textContent = data.message; // Show success message
 					messageDiv.className = "message success"; // Add success styling
 					localStorage.setItem("accessToken", data.access_token); // Store the JWT token in localStorage
-					console.log(`Access Token after login: ${data.access_token}`); // Debugging
 					setTimeout(() => {
 						window.location.href = data.redirect_url; // Redirect to posts page
 					}, 2000); // Redirect after 2 seconds
@@ -164,7 +163,4 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		});
 	});
-
-	console.log(`Authorization header: ${accessToken}`);
-	console.log(`Current user ID: ${accessToken}`);
 });

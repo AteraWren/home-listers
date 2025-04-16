@@ -12,14 +12,10 @@ CORS(routes)
 
 @routes.route('/', methods=['GET', 'POST'])
 def index():
-    print(f"Is user authenticated? {current_user.is_authenticated}")
     if request.method == 'POST':  # Handle login form submission
         email = request.form.get('email')
         password = request.form.get('password')
         user = User.query.filter_by(email=email).first()
-
-        print(f"Email: {email}, Password: {password}")
-        print(f"User found: {user}")
 
         if user and user.check_password(password):
             access_token = create_access_token(identity=str(user.id))
@@ -120,7 +116,7 @@ def create_post():
             db.session.add(new_post)
             db.session.commit()
 
-            return jsonify({'message': 'Post created successfully!'}), 201
+            return jsonify({'message': 'Post created successfully!', 'id': new_post.id}), 201
 
         return handle_post()
 
@@ -212,7 +208,7 @@ def add_post():
     db.session.add(new_post)
     db.session.commit()
 
-    return jsonify({'message': 'Post created successfully'}), 201
+    return jsonify({'message': 'Post created successfully!', 'id': new_post.id}), 201
 
 # Get a single post by ID
 @routes.route('/posts/<int:post_id>', methods=['GET'])
@@ -265,7 +261,10 @@ def update_post(post_id):
 @jwt_required()
 def delete_post(post_id):
     try:
-        post = Post.query.get_or_404(post_id)
+        post = Post.query.get(post_id)  # Use get() instead of get_or_404()
+        if not post:
+            return jsonify({'error': 'Post not found'}), 404
+
         current_user_id = int(get_jwt_identity())  # Ensure user ID is an integer
 
         # Check if the logged-in user owns the post
