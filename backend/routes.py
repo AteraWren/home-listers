@@ -92,6 +92,14 @@ def logout():
 
 @routes.route('/create_post', methods=['GET', 'POST'])
 def create_post():
+    """
+    Create a new post.
+
+    This route allows a logged-in user to create a new post with details such as title, description, price, location, and an optional image URL.
+
+    Returns:
+        Response: A JSON response with a success message and the post ID if the post is created successfully.
+    """
     if request.method == 'POST':
         @jwt_required()
         def handle_post():
@@ -100,7 +108,7 @@ def create_post():
             description = request.json.get('description')
             price = request.json.get('price')
             location = request.json.get('location')
-            image_url = request.json.get('image_url') or '/static/images/house-30.png'  # Use a hardcoded path
+            image_url = request.json.get('image_url') or '/static/images/house-30.png'
 
             if not title or not description or not price or not location:
                 return jsonify({'error': 'All fields except image URL are required'}), 400
@@ -260,6 +268,17 @@ def update_post(post_id):
 @routes.route('/posts/<int:post_id>', methods=['DELETE'])
 @jwt_required()
 def delete_post(post_id):
+    """
+    Delete a post by its ID.
+
+    This route allows the logged-in user to delete a post they own.
+
+    Args:
+        post_id (int): The ID of the post to delete.
+
+    Returns:
+        Response: A JSON response indicating success or failure.
+    """
     try:
         post = Post.query.get(post_id)  # Use get() instead of get_or_404()
         if not post:

@@ -15,8 +15,17 @@ login_manager = LoginManager()
 jwt = JWTManager()  # Create an instance of JWTManager
 
 def create_app(config_class=None):
+    """
+    Create and configure the Flask application.
+
+    Args:
+        config_class (class, optional): The configuration class to use. Defaults to `Config`.
+
+    Returns:
+        Flask: The configured Flask application instance.
+    """
     app = Flask(__name__)
-    app.config.from_object(config_class or Config)  # Use the provided config class or default to Config
+    app.config.from_object(config_class or Config)
 
     # Initialize extensions with the app
     db.init_app(app)

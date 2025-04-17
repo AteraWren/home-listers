@@ -61,6 +61,18 @@ def test_get_posts(client):
     assert b'Test Post' in response.data
 
 def test_delete_post(client):
+    """
+    Test the deletion of a post.
+
+    This test verifies that a user can delete their own post and that attempting
+    to delete the same post again returns a 404 error.
+
+    Args:
+        client (FlaskClient): The test client for making HTTP requests.
+
+    Returns:
+        None
+    """
     # Register and log in a test user
     client.post('/register', data={
         'username': 'testuser',

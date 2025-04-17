@@ -1,3 +1,9 @@
+"""
+Reset a user's password.
+
+This script resets the password for a specific user in the database.
+"""
+
 from backend import create_app, db
 from backend.models import User
 import logging
