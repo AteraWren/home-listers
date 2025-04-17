@@ -89,6 +89,8 @@ The app is live on Render: [Home Listers](https://home-listers.onrender.com)
 4. Add the required environment variables (`DATABASE_URL`, `SECRET_KEY`, `JWT_SECRET_KEY`) in Render's **Environment** settings.
 5. Deploy the app and access it at the provided Render URL.
 
+Caution!: The app takes about 30 seconds to use the beginning of the app to spin up due to being free on render! Please give it some time!
+
 ## License
 
 This project is licensed under the MIT License.
